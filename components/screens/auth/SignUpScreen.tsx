@@ -3,10 +3,7 @@ import { Image, ImageBackground, ScrollView, Switch, Text, TouchableOpacity, Vie
 import Ionicons from '@expo/vector-icons/Ionicons';
 import CustomTextInput from '@/components/shared/CustomTextInput';
 
-export default function LoginScreen() {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  
+export default function SignUpScreen() {
     return (
         <ImageBackground source={require('@/assets/images/auth/login-screen-img.png')} 
             style={{ flex: 1 }} resizeMode="cover">
@@ -23,10 +20,10 @@ export default function LoginScreen() {
             <View className="w-full h-[50%] rounded-t-[10px] bg-background-200 flex flex-col p-[30px] absolute bottom-[0px]">
                 <ScrollView>
                     <Text className="text-text-200 text-[25px] font-semibold mb-[5px]">
-                        Welcome back!
+                        Create Account
                     </Text>
                     <Text className="text-text-100 text-[15px] mb-[15px]">
-                        Sign in to your account
+                        Quickly create account
                     </Text>
                     <CustomTextInput 
                         inputProps={{
@@ -43,6 +40,20 @@ export default function LoginScreen() {
                     />
                     <CustomTextInput 
                         inputProps={{
+                            placeholder: "912 345 6789",
+                            keyboardType: 'numeric',
+                            maxLength: 10,
+                            // onChangeText: formik.handleChange("email"),
+                            // value: formik.values.email,
+                            autoCapitalize: 'none'
+                        }}
+                        variant='mobile-number'
+                        padding='25px'
+                        marginBottom='5px'
+                        hasIcon={true}
+                    />
+                    <CustomTextInput 
+                        inputProps={{
                             placeholder: "***************",
                             keyboardType: 'email-address',
                             // onChangeText: formik.handleChange("email"),
@@ -51,38 +62,24 @@ export default function LoginScreen() {
                         }}
                         variant='password'
                         padding='25px'
-                        marginBottom='5px'
+                        marginBottom='15px'
                         hasIcon={true}
                     />
-                    <View className='w-full flex flex-row justify-between items-center mb-[5px]'>
-                        <Switch
-                            trackColor={{false: '#767577', true: '#AEDC81'}}
-                            thumbColor={isEnabled ? '#6CC51D' : '#f4f3f4'}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitch}
-                            value={isEnabled}
-                        />
-                        <TouchableOpacity onPress={() => {}}>
-                            <Text className='text-[12px] text-link'>
-                                Forgot Password?
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
                     
                     <TouchableOpacity className="w-full bg-primary-300 py-[15px] rounded-[5px] flex flex-row items-center justify-center mb-[15px]">
                         <Text className="text-center text-background-100 text-[15px] font-semibold ml-[15px]">
-                            Login
+                            Signup
                         </Text>
                     </TouchableOpacity>
                     <View className='w-full flex flex-row justify-center'>
                         <Text className='text-[15px] text-text-100 mr-[5px]'>
-                            Don't have an account?
+                            Already have an account?
                         </Text>
                         <TouchableOpacity 
                             // onPress={() => navigation.navigate('SignUp')}
                         >
                             <Text className='text-[15px] text-text-200 font-semibold'>
-                                Sign up
+                                Login
                             </Text>
                         </TouchableOpacity>
                     </View>
