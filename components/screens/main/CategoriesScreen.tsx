@@ -1,7 +1,8 @@
 import React from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import Header from '@/components/shared/Header'
 import FontAwesome from '@expo/vector-icons/FontAwesome'
+
+import Header from '@/components/shared/Header'
 
 export default function CategoriesScreen() {
     const categories = [
