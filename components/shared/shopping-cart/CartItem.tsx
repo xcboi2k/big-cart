@@ -74,7 +74,7 @@ const CartItem = ({
         //         </View>
         //     </View>
         // </Swipeable>
-        <View className="bg-white rounded-2xl py-4 px-6 mb-3 flex-row items-center">
+        <View className="bg-white py-4 px-6 mb-3 flex-row items-center">
             {/* LEFT ICON */}
             <View className="w-14 h-14 rounded-full bg-green-100 items-center justify-center mr-4">
                 <FontAwesome name="leaf" size={24} color="#22C55E" />
