@@ -55,6 +55,8 @@ export default function CustomTextInput({
                             <Feather name="lock" size={24} color="#868889" />
                         ) : variant === 'mobile-number' ? (
                             <Feather name="phone" size={24} color="#868889" />
+                        ) : variant === 'review' ? (
+                            <Feather name="edit-2" size={24} color="#868889" />
                         ) : null}
                     </View>
                 )}
@@ -63,7 +65,11 @@ export default function CustomTextInput({
                 )}
                 <TextInput
                     {...inputProps}
-                    className={`text-${inputFontSize}`}
+                    multiline={variant === 'review'}
+                    textAlignVertical={variant === 'review' ? 'top' : 'center'}
+                    className={`text-${inputFontSize} ${
+                        variant === 'review' ? 'min-h-[100px] py-3' : ''
+                    }`}
                     secureTextEntry={
                         variant === 'password' && !isPasswordVisible
                     }
