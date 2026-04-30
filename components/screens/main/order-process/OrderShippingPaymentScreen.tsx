@@ -152,7 +152,7 @@ export default function OrderShippingPaymentScreen() {
                 </View>
 
                 <View className="mt-[20%] pb-2 px-4">
-                    <ButtonText title="Next" />
+                    <ButtonText title="Make a payment" />
                 </View>
             </ScrollView>
         </View>
