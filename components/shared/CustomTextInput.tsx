@@ -16,9 +16,23 @@ interface CustomTextInputProps {
     customLabelColor?: string
     inputProps?: TextInputProps // Assuming you want to use TextInputProps from react-native
     inputFontSize?: number
-    variant: string
+    variant?: Variant
     hasIcon?: boolean
 }
+
+type Variant =
+    | 'email'
+    | 'password'
+    | 'mobile-number'
+    | 'review'
+    | 'name'
+    | 'address'
+    | 'zipcode'
+    | 'city'
+    | 'card-number'
+    | 'calendar'
+    | 'lock'
+    | 'default'
 
 export default function CustomTextInput({
     padding = '25px',
@@ -31,6 +45,20 @@ export default function CustomTextInput({
     inputFontSize,
     hasIcon = false,
 }: CustomTextInputProps) {
+    const iconMap: Record<Variant, string> = {
+        email: 'mail',
+        password: 'lock',
+        'mobile-number': 'phone',
+        review: 'edit-2',
+        name: 'user',
+        address: 'map-pin',
+        zipcode: 'hash',
+        city: 'home',
+        'card-number': 'credit-card',
+        calendar: 'calendar',
+        lock: 'lock',
+    }
+
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false)
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible)
@@ -49,15 +77,13 @@ export default function CustomTextInput({
             <View className="w-full flex-row items-center bg-white rounded-[5px] bg-white px-6 py-2">
                 {hasIcon && (
                     <View className="mr-[10px]">
-                        {variant === 'email' ? (
-                            <Feather name="mail" size={24} color="#868889" />
-                        ) : variant === 'password' ? (
-                            <Feather name="lock" size={24} color="#868889" />
-                        ) : variant === 'mobile-number' ? (
-                            <Feather name="phone" size={24} color="#868889" />
-                        ) : variant === 'review' ? (
-                            <Feather name="edit-2" size={24} color="#868889" />
-                        ) : null}
+                        {variant !== 'default' && iconMap[variant] && (
+                            <Feather
+                                name={iconMap[variant]}
+                                size={24}
+                                color="#868889"
+                            />
+                        )}
                     </View>
                 )}
                 {variant === 'mobile-number' && (

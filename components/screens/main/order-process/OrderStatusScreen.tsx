@@ -27,7 +27,7 @@ export default function OrderStatusScreen() {
                 </View>
             </View>
 
-            <View className="flex-1 justify-end items-end pb-2 px-4">
+            <View className="mt-[20%] pb-2 px-4">
                 <ButtonText title="Track Order" />
             </View>
         </View>
