@@ -24,7 +24,44 @@ export default function MyAddressScreen() {
         ''
     )
 
-    const [isDefault, setIsDefault] = useState(false)
+    const [addresses, setAddresses] = useState([
+        {
+            id: '1',
+            name: 'Russell Austin',
+            address: '281 Crescent Day, LA Port',
+            city: 'California, United States',
+            phone: '912 345 6789',
+            zipCode: '77571',
+            isDefault: true,
+        },
+        {
+            id: '2',
+            name: 'Jissca Simpson',
+            address: '123 Sunset Blvd',
+            city: 'Los Angeles, California',
+            phone: '923 456 7890',
+            zipCode: '90001',
+            isDefault: false,
+        },
+        {
+            id: '3',
+            name: 'Michael Tan',
+            address: '456 Makati Ave',
+            city: 'Makati, Philippines',
+            phone: '945 678 1234',
+            zipCode: '1200',
+            isDefault: false,
+        },
+    ])
+
+    const setDefaultAddress = (id: string) => {
+        setAddresses((prev) =>
+            prev.map((item) => ({
+                ...item,
+                isDefault: item.id === id,
+            }))
+        )
+    }
 
     const [expandedId, setExpandedId] = useState<string | null>(null)
 
@@ -42,137 +79,161 @@ export default function MyAddressScreen() {
                 />
             </View>
             <ScrollView className="w-full px-4">
-                <View className="w-full bg-white p-4 mb-4">
-                    <View className="flex-row items-start justify-between">
-                        {/* LEFT */}
-                        <View className="flex-row flex-1">
-                            <View className="w-16 h-16 rounded-full bg-green-100 items-center justify-center mr-3">
-                                <Ionicons
-                                    name="location-outline"
-                                    size={26}
-                                    color="#22c55e"
-                                />
+                {addresses.map((item) => (
+                    <View
+                        key={item.id}
+                        className="w-full bg-white p-4 mb-4 rounded-xl"
+                    >
+                        {/* DEFAULT BADGE */}
+                        {item.isDefault && (
+                            <View className="px-2 py-[2px] bg-green-100 rounded-full mb-3 self-start">
+                                <Text className="text-[10px] text-green-600 font-semibold">
+                                    DEFAULT
+                                </Text>
                             </View>
+                        )}
 
-                            <View className="flex-1">
-                                <View className="flex-row items-center">
-                                    <Text className="font-bold text-black text-lg mr-2">
-                                        Test User
+                        {/* HEADER */}
+                        <View className="flex-row items-start justify-between">
+                            {/* LEFT */}
+                            <View className="flex-row flex-1">
+                                <View className="w-16 h-16 rounded-full bg-green-100 items-center justify-center mr-3">
+                                    <Ionicons
+                                        name="location-outline"
+                                        size={26}
+                                        color="#22c55e"
+                                    />
+                                </View>
+
+                                <View className="flex-1">
+                                    <Text className="font-bold text-black text-lg">
+                                        {item.name}
                                     </Text>
 
-                                    {isDefault && (
-                                        <View className="px-2 py-[2px] bg-green-100 rounded-full">
-                                            <Text className="text-[10px] text-green-600 font-semibold">
-                                                DEFAULT
-                                            </Text>
-                                        </View>
-                                    )}
+                                    <Text className="text-xs text-gray-400">
+                                        {item.address}
+                                    </Text>
+                                    <Text className="text-xs text-gray-400">
+                                        {item.city}
+                                    </Text>
+                                    <Text className="text-sm text-black font-bold">
+                                        +63 {item.phone}
+                                    </Text>
                                 </View>
-
-                                <Text className="text-xs text-gray-400">
-                                    281 Crescent Day, LA Port
-                                </Text>
-                                <Text className="text-xs text-gray-400">
-                                    California, United States 77571
-                                </Text>
-                                <Text className="text-sm text-black font-bold">
-                                    +63 912 345 6789
-                                </Text>
-                            </View>
-                        </View>
-
-                        {/* RIGHT CHEVRON (clickable only) */}
-                        <TouchableOpacity onPress={() => toggleExpand('1')}>
-                            <Ionicons
-                                name={
-                                    expandedId === '1'
-                                        ? 'chevron-up'
-                                        : 'chevron-down'
-                                }
-                                size={22}
-                                color="#6CC51D"
-                            />
-                        </TouchableOpacity>
-                    </View>
-
-                    <View className="w-full border-t border-gray-100 mt-2 mb-2" />
-                    {/* ✅ COLLAPSIBLE CONTENT */}
-                    {expandedId === '1' && (
-                        <View>
-                            <View className="space-y-3">
-                                <CustomTextInput
-                                    inputProps={{ placeholder: 'Name' }}
-                                    variant="name"
-                                    padding="25px"
-                                    hasIcon
-                                />
-
-                                <CustomTextInput
-                                    inputProps={{ placeholder: 'Address' }}
-                                    variant="address"
-                                    padding="25px"
-                                    hasIcon
-                                />
-
-                                <View className="flex-row gap-3">
-                                    <View className="flex-1">
-                                        <CustomTextInput
-                                            inputProps={{ placeholder: 'City' }}
-                                            variant="city"
-                                            padding="25px"
-                                            hasIcon
-                                        />
-                                    </View>
-
-                                    <View className="flex-1">
-                                        <CustomTextInput
-                                            inputProps={{
-                                                placeholder: 'Zip Code',
-                                            }}
-                                            variant="zipcode"
-                                            padding="25px"
-                                            hasIcon
-                                        />
-                                    </View>
-                                </View>
-
-                                <CustomDropdown
-                                    data={countries}
-                                    selectedValue={selectedCountry}
-                                    onValueChange={setSelectedCountry}
-                                    variant="label-value"
-                                    hasIcon
-                                />
-
-                                <CustomTextInput
-                                    inputProps={{
-                                        placeholder: 'Mobile Number',
-                                    }}
-                                    variant="mobile-number"
-                                    padding="25px"
-                                    hasIcon
-                                />
                             </View>
 
-                            {/* FOOTER */}
-                            <View className="flex-row items-center mt-4">
-                                <Switch
-                                    trackColor={{
-                                        false: '#767577',
-                                        true: '#6CC51D',
-                                    }}
-                                    thumbColor="#f4f3f4"
-                                    onValueChange={() =>
-                                        setIsDefault((prev) => !prev)
+                            {/* CHEVRON */}
+                            <TouchableOpacity
+                                onPress={() => toggleExpand(item.id)}
+                            >
+                                <Ionicons
+                                    name={
+                                        expandedId === item.id
+                                            ? 'chevron-up'
+                                            : 'chevron-down'
                                     }
-                                    value={isDefault}
-                                    className="mr-2"
+                                    size={22}
+                                    color="#6CC51D"
                                 />
-                                <Text>Make default</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
-                    )}
-                </View>
+
+                        <View className="w-full border-t border-gray-100 mt-2 mb-2" />
+
+                        {/* COLLAPSIBLE */}
+                        {expandedId === item.id && (
+                            <View>
+                                <View className="space-y-3">
+                                    <CustomTextInput
+                                        inputProps={{
+                                            placeholder: 'Name',
+                                            value: item?.name,
+                                            editable: false,
+                                        }}
+                                        variant="name"
+                                        padding="25px"
+                                        hasIcon
+                                    />
+
+                                    <CustomTextInput
+                                        inputProps={{
+                                            placeholder: 'Address',
+                                            value: item?.address,
+                                            editable: false,
+                                        }}
+                                        variant="address"
+                                        padding="25px"
+                                        hasIcon
+                                    />
+
+                                    <View className="flex-row gap-3">
+                                        <View className="flex-1">
+                                            <CustomTextInput
+                                                inputProps={{
+                                                    placeholder: 'City',
+                                                    value: item?.city,
+                                                    editable: false,
+                                                }}
+                                                variant="city"
+                                                padding="25px"
+                                                hasIcon
+                                            />
+                                        </View>
+
+                                        <View className="flex-1">
+                                            <CustomTextInput
+                                                inputProps={{
+                                                    placeholder: 'Zip Code',
+                                                    value: item?.zipCode,
+                                                    editable: false,
+                                                }}
+                                                variant="zipcode"
+                                                padding="25px"
+                                                hasIcon
+                                            />
+                                        </View>
+                                    </View>
+
+                                    {/* <CustomDropdown
+                                        data={countries}
+                                        selectedValue={selectedCountry}
+                                        onValueChange={setSelectedCountry}
+                                        variant="label-value"
+                                        hasIcon
+                                    /> */}
+
+                                    <CustomTextInput
+                                        inputProps={{
+                                            placeholder: 'Mobile Number',
+                                            value: item?.phone,
+                                            editable: false,
+                                        }}
+                                        variant="mobile-number"
+                                        padding="25px"
+                                        hasIcon
+                                    />
+                                </View>
+
+                                {/* FOOTER */}
+                                <View className="flex-row items-center mt-4">
+                                    <Switch
+                                        trackColor={{
+                                            false: '#767577',
+                                            true: '#6CC51D',
+                                        }}
+                                        thumbColor="#f4f3f4"
+                                        onValueChange={() =>
+                                            setDefaultAddress(item.id)
+                                        }
+                                        value={item.isDefault}
+                                        className="mr-2"
+                                    />
+                                    <Text>Make default</Text>
+                                </View>
+                            </View>
+                        )}
+                    </View>
+                ))}
 
                 <View className="mt-[20%] pb-2 px-4">
                     <ButtonText title="Save settings" />
